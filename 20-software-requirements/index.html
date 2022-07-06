@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -323,7 +323,7 @@ make it easier for others to use your descriptions, you can include a
 <code class="docutils literal notranslate"><span class="pre">SoftwareRequirement</span></code> field in the <code class="docutils literal notranslate"><span class="pre">hints</span></code> section.
 This may also help to avoid confusion about which version of a tool the
 description was written for.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 
 <span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;InterProScan:</span><span class="nv"> </span><span class="s">protein</span><span class="nv"> </span><span class="s">sequence</span><span class="nv"> </span><span class="s">classifier&quot;</span><span class="w"></span>
@@ -394,12 +394,12 @@ description was written for.</p>
 </div>
 <p>In this example, the software requirement being described is InterProScan
 version 5.21-60.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hints</span><span class="p">:</span>
-  <span class="n">SoftwareRequirement</span><span class="p">:</span>
-    <span class="n">packages</span><span class="p">:</span>
-      <span class="n">interproscan</span><span class="p">:</span>
-        <span class="n">specs</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;https://identifiers.org/rrid/RRID:SCR_005829&quot;</span> <span class="p">]</span>
-        <span class="n">version</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;5.21-60&quot;</span> <span class="p">]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">hints</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">SoftwareRequirement</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">packages</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">interproscan</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">specs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="s">&quot;https://identifiers.org/rrid/RRID:SCR_005829&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="s">&quot;5.21-60&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Depending on your CWL runner, these hints may be used to check

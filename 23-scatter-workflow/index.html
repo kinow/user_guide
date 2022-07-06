@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -323,15 +323,15 @@ This feature tells the runner that you wish to run a tool or workflow multiple t
 of inputs. The workflow then takes the input(s) as an array and will run the specified step(s)
 on each element of the array as if it were a single input. This allows you to run the same workflow
 on multiple inputs without having to generate many different commands or input yaml files.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="p">:</span>
-  <span class="n">ScatterFeatureRequirement</span><span class="p">:</span> <span class="p">{}</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ScatterFeatureRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The most common reason a new user might want to use scatter is to perform the same analysis on
 different samples. Let’s start with a simple workflow that calls our first example and takes
 an array of strings as input to the workflow:</p>
 <p><em>scatter-workflow.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
@@ -355,18 +355,18 @@ an array of strings as input to the workflow:</p>
 </div>
 <p>Aside from the <code class="docutils literal notranslate"><span class="pre">requirements</span></code> section including <code class="docutils literal notranslate"><span class="pre">ScatterFeatureRequirement</span></code>, what is
 going on here?</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span><span class="p">:</span>
-  <span class="n">message_array</span><span class="p">:</span> <span class="n">string</span><span class="p">[]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">message_array</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string[]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>First of all, notice that the main workflow level input here requires an array of strings.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">steps</span><span class="p">:</span>
-  <span class="n">echo</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">:</span> <span class="mi">1</span><span class="n">st</span><span class="o">-</span><span class="n">tool</span><span class="o">.</span><span class="n">cwl</span>
-    <span class="n">scatter</span><span class="p">:</span> <span class="n">message</span>
-    <span class="ow">in</span><span class="p">:</span>
-      <span class="n">message</span><span class="p">:</span> <span class="n">message_array</span>
-    <span class="n">out</span><span class="p">:</span> <span class="p">[]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">echo</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1st-tool.cwl</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span><span class="w"></span>
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message_array</span><span class="w"></span>
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Here we’ve added a new field to the step <code class="docutils literal notranslate"><span class="pre">echo</span></code> called <code class="docutils literal notranslate"><span class="pre">scatter</span></code>. This field tells the
@@ -387,31 +387,31 @@ as well!</p>
 </div>
 <p>As a reminder, <code class="docutils literal notranslate"><span class="pre">1st-tool.cwl</span></code> simply calls the command <code class="docutils literal notranslate"><span class="pre">echo</span></code> on a message. If we invoke
 <code class="docutils literal notranslate"><span class="pre">cwl-runner</span> <span class="pre">scatter-workflow.cwl</span> <span class="pre">scatter-job.yml</span></code> on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner scatter-workflow.cwl scatter-job.yml
-[workflow scatter-workflow.cwl] start
-[step echo] start
-[job echo] /tmp/tmp0hqmg400$ echo \
-    &#39;Hello world!&#39;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner scatter-workflow.cwl scatter-job.yml
+<span class="o">[</span>workflow scatter-workflow.cwl<span class="o">]</span> start
+<span class="o">[</span>step echo<span class="o">]</span> start
+<span class="o">[</span>job echo<span class="o">]</span> /tmp/tmp0hqmg400$ <span class="nb">echo</span> <span class="se">\</span>
+    <span class="s1">&#39;Hello world!&#39;</span>
 Hello world!
-[job echo] completed success
-[step echo] start
-[job echo_2] /tmp/tmpu65_m1zw$ echo \
-    &#39;Hola mundo!&#39;
+<span class="o">[</span>job echo<span class="o">]</span> completed success
+<span class="o">[</span>step echo<span class="o">]</span> start
+<span class="o">[</span>job echo_2<span class="o">]</span> /tmp/tmpu65_m1zw$ <span class="nb">echo</span> <span class="se">\</span>
+    <span class="s1">&#39;Hola mundo!&#39;</span>
 Hola mundo!
-[job echo_2] completed success
-[step echo] start
-[job echo_3] /tmp/tmp5cs7a2wh$ echo \
-    &#39;Bonjour le monde!&#39;
+<span class="o">[</span>job echo_2<span class="o">]</span> completed success
+<span class="o">[</span>step echo<span class="o">]</span> start
+<span class="o">[</span>job echo_3<span class="o">]</span> /tmp/tmp5cs7a2wh$ <span class="nb">echo</span> <span class="se">\</span>
+    <span class="s1">&#39;Bonjour le monde!&#39;</span>
 Bonjour le monde!
-[job echo_3] completed success
-[step echo] start
-[job echo_4] /tmp/tmp301wo7p8$ echo \
-    &#39;Hallo welt!&#39;
+<span class="o">[</span>job echo_3<span class="o">]</span> completed success
+<span class="o">[</span>step echo<span class="o">]</span> start
+<span class="o">[</span>job echo_4<span class="o">]</span> /tmp/tmp301wo7p8$ <span class="nb">echo</span> <span class="se">\</span>
+    <span class="s1">&#39;Hallo welt!&#39;</span>
 Hallo welt!
-[job echo_4] completed success
-[step echo] completed success
-[workflow scatter-workflow.cwl] completed success
-{}
+<span class="o">[</span>job echo_4<span class="o">]</span> completed success
+<span class="o">[</span>step echo<span class="o">]</span> completed success
+<span class="o">[</span>workflow scatter-workflow.cwl<span class="o">]</span> completed success
+<span class="o">{}</span>
 Final process status is success
 </pre></div>
 </div>
@@ -420,15 +420,15 @@ Final process status is success
 <p>Let’s perform a simple echo like above, but capturing <code class="docutils literal notranslate"><span class="pre">stdout</span></code> by adding the following
 lines instead of <code class="docutils literal notranslate"><span class="pre">outputs:</span> <span class="pre">[]</span></code></p>
 <p><em>1st-tool-mod.cwl</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span><span class="p">:</span>
-  <span class="n">echo_out</span><span class="p">:</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">stdout</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">echo_out</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdout</span><span class="w"></span>
 </pre></div>
 </div>
 <p>And add a second step that uses <code class="docutils literal notranslate"><span class="pre">wc</span></code> to count the characters in each file. See the tool
 below:</p>
 <p><em>wc-tool.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -444,7 +444,7 @@ below:</p>
 </div>
 <p>Now, how do we incorporate scatter? Remember the scatter field is under each step:</p>
 <p><em>scatter-two-steps.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
@@ -487,7 +487,7 @@ well.</p>
 <a class="reference internal" href="../22-nested-workflows/index.html"><span class="doc std std-doc">chapter 21</span></a>, that we can make an entire workflow a single step in another workflow! Convert our
 two step workflow to a single step subworkflow:</p>
 <p><em>scatter-nested-workflow.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>

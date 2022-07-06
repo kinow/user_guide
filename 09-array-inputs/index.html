@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -324,7 +324,7 @@ line. There are two ways to specify an array parameter. First is to provide
 that may appear in the array. Alternatively, brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code> may be added after
 the type name to indicate that input parameter is array of that type.</p>
 <p><em>array-inputs.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -368,30 +368,30 @@ the type name to indicate that input parameter is array of that type.</p>
 </div>
 <p>Now invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> providing the tool wrapper and the input object
 on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner array-inputs.cwl array-inputs-job.yml
-[job array-inputs.cwl] /home/examples$ echo \
-    -A \
-    one \
-    two \
-    three \
-    -B=four \
-    -B=five \
-    -B=six \
-    -C=seven,eight,nine &gt; /home/examples/output.txt
-[job array-inputs.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/examples/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$91038e29452bc77dcd21edef90a15075f3071540&quot;,
-        &quot;size&quot;: 60,
-        &quot;path&quot;: &quot;/home/examples/output.txt&quot;
-    }
-}
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner array-inputs.cwl array-inputs-job.yml
+<span class="o">[</span>job array-inputs.cwl<span class="o">]</span> /home/examples$ <span class="nb">echo</span> <span class="se">\</span>
+    -A <span class="se">\</span>
+    one <span class="se">\</span>
+    two <span class="se">\</span>
+    three <span class="se">\</span>
+    -B<span class="o">=</span>four <span class="se">\</span>
+    -B<span class="o">=</span>five <span class="se">\</span>
+    -B<span class="o">=</span>six <span class="se">\</span>
+    -C<span class="o">=</span>seven,eight,nine &gt; /home/examples/output.txt
+<span class="o">[</span>job array-inputs.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/examples/output.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$91038</span><span class="s2">e29452bc77dcd21edef90a15075f3071540&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">60</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/examples/output.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 $ cat output.txt
--A one two three -B=four -B=five -B=six -C=seven,eight,nine
+-A one two three -B<span class="o">=</span>four -B<span class="o">=</span>five -B<span class="o">=</span>six -C<span class="o">=</span>seven,eight,nine
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">inputBinding</span></code> can appear either on the outer array parameter definition

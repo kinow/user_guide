@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -320,7 +320,7 @@
 <h1>Array Outputs<a class="headerlink" href="#array-outputs" title="Permalink to this headline">#</a></h1>
 <p>You can also capture multiple output files into an array of files using <code class="docutils literal notranslate"><span class="pre">glob</span></code>.</p>
 <p><em>array-outputs.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -350,25 +350,25 @@
 </div>
 <p>Now invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> providing the tool wrapper and the input object
 on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner array-outputs.cwl array-outputs-job.yml
-[job 140190876078160] /home/example$ touch foo.txt bar.dat baz.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner array-outputs.cwl array-outputs-job.yml
+<span class="o">[</span>job <span class="m">140190876078160</span><span class="o">]</span> /home/example$ touch foo.txt bar.dat baz.txt
 Final process status is success
-{
-  &quot;output&quot;: [
-    {
-      &quot;size&quot;: 0,
-      &quot;location&quot;: &quot;foo.txt&quot;,
-      &quot;checksum&quot;: &quot;sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709&quot;,
-      &quot;class&quot;: &quot;File&quot;
-    },
-    {
-      &quot;size&quot;: 0,
-      &quot;location&quot;: &quot;baz.txt&quot;,
-      &quot;checksum&quot;: &quot;sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709&quot;,
-      &quot;class&quot;: &quot;File&quot;
-    }
-  ]
-}
+<span class="o">{</span>
+  <span class="s2">&quot;output&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">&quot;size&quot;</span>: <span class="m">0</span>,
+      <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;foo.txt&quot;</span>,
+      <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$da39a3ee5e6b4b0d3255bfef95601890afd80709</span><span class="s2">&quot;</span>,
+      <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">&quot;size&quot;</span>: <span class="m">0</span>,
+      <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;baz.txt&quot;</span>,
+      <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$da39a3ee5e6b4b0d3255bfef95601890afd80709</span><span class="s2">&quot;</span>,
+      <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>As described in the <a class="reference internal" href="../yaml/index.html#arrays"><span class="std std-doc">YAML Guide</span></a>,

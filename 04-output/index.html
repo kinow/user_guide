@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -328,17 +328,15 @@ its results in the form of files created in the output directory.  The
 output parameters returned by the CWL tool are either the output files
 themselves, or come from examining the content of those files.</p>
 <p>The following example demonstrates how to return a file that has been extracted from a tar file.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<blockquote>
-<div><p class="rubric">Passing mandatory arguments to the `baseCommand`</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Passing mandatory arguments to the <code class="docutils literal notranslate"><span class="pre">baseCommand</span></code></p>
 <p>In previous examples, the <code class="docutils literal notranslate"><span class="pre">baseCommand</span></code> was just a string, with any arguments passed as CWL inputs.
 Instead of a single string we can use an <em>array of strings</em>.  The first element is the command to run, and
 any subsequent elements are mandatory command line arguments</p>
-</div></blockquote>
 </div>
 <p><em>tar.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -363,32 +361,32 @@ any subsequent elements are mandatory command line arguments</p>
 </div>
 <p>Next, create a tar file for the example and invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool
 wrapper and the input object on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch hello.txt &amp;&amp; tar -cvf hello.tar hello.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ touch hello.txt <span class="o">&amp;&amp;</span> tar -cvf hello.tar hello.txt
 $ cwl-runner tar.cwl tar-job.yml
-[job tar.cwl] /tmp/tmpqOeawQ$ tar \
-    --extract --file \
+<span class="o">[</span>job tar.cwl<span class="o">]</span> /tmp/tmpqOeawQ$ tar <span class="se">\</span>
+    --extract --file <span class="se">\</span>
     /tmp/tmpGDk8Y1/stg80bbad20-494d-47af-8075-dffc32df03a3/hello.tar
-[job tar.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/me/cwl/user_guide/hello.txt&quot;,
-        &quot;basename&quot;: &quot;hello.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709&quot;,
-        &quot;size&quot;: 0,
-        &quot;path&quot;: &quot;/home/me/cwl/user_guide/hello.txt&quot;
-    }
-}
+<span class="o">[</span>job tar.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/me/cwl/user_guide/hello.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;hello.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$da39a3ee5e6b4b0d3255bfef95601890afd80709</span><span class="s2">&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">0</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/me/cwl/user_guide/hello.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 </pre></div>
 </div>
 <p>The field <code class="docutils literal notranslate"><span class="pre">outputBinding</span></code> describes how to set the value of each
 output parameter.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span><span class="p">:</span>
-  <span class="n">example_out</span><span class="p">:</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">File</span>
-    <span class="n">outputBinding</span><span class="p">:</span>
-      <span class="n">glob</span><span class="p">:</span> <span class="n">hello</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">example_out</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello.txt</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">glob</span></code> field consists of the name of a file in the output directory.

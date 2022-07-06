@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -321,7 +321,7 @@
 <p>This workflow extracts a java source file from a tar file and then
 compiles it.</p>
 <p><em>1st-workflow.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
@@ -349,9 +349,9 @@ compiles it.</p>
 <span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">classfile</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="c1">## Visualization of 1st-workflow.cwl</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;https://view.commonwl.org/workflows/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/21-1st-workflow/1st-workflow.cwl&quot;</span><span class="o">&gt;&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://view.commonwl.org/graph/svg/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/21-1st-workflow/1st-workflow.cwl&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Visualization of 1st-workflow.cwl&quot;</span> <span class="o">/&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-</pre></div>
+<div class="admonition-visualization-of-1st-workflow-cwl admonition">
+<p class="admonition-title">Visualization of 1st-workflow.cwl</p>
+<p><a class="reference external" href="https://view.commonwl.org/workflows/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/21-1st-workflow/1st-workflow.cwl"><img alt="Visualization of 1st-workflow.cwl" src="https://view.commonwl.org/graph/svg/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/21-1st-workflow/1st-workflow.cwl" /></a></p>
 </div>
 <p>Use a YAML or a JSON object in a separate file to describe the input of a run:</p>
 <p><em>1st-workflow-job.yml</em></p>
@@ -363,57 +363,57 @@ compiles it.</p>
 </div>
 <p>Now invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool wrapper and the input object on the
 command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;public class Hello {}&quot; &gt; Hello.java &amp;&amp; tar -cvf hello.tar Hello.java
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;public class Hello {}&quot;</span> &gt; Hello.java <span class="o">&amp;&amp;</span> tar -cvf hello.tar Hello.java
 $ cwl-runner 1st-workflow.cwl 1st-workflow-job.yml
-[job untar] /tmp/tmp94qFiM$ tar --create --file /home/example/hello.tar Hello.java
-[step untar] completion status is success
-[job compile] /tmp/tmpu1iaKL$ docker run -i --volume=/tmp/tmp94qFiM/Hello.java:/var/lib/cwl/job301600808_tmp94qFiM/Hello.java:ro --volume=/tmp/tmpu1iaKL:/var/spool/cwl:rw --volume=/tmp/tmpfZnNdR:/tmp:rw --workdir=/var/spool/cwl --read-only=true --net=none --user=1001 --rm --env=TMPDIR=/tmp java:7 javac -d /var/spool/cwl /var/lib/cwl/job301600808_tmp94qFiM/Hello.java
-[step compile] completion status is success
-[workflow 1st-workflow.cwl] outdir is /home/example
+<span class="o">[</span>job untar<span class="o">]</span> /tmp/tmp94qFiM$ tar --create --file /home/example/hello.tar Hello.java
+<span class="o">[</span>step untar<span class="o">]</span> completion status is success
+<span class="o">[</span>job compile<span class="o">]</span> /tmp/tmpu1iaKL$ docker run -i --volume<span class="o">=</span>/tmp/tmp94qFiM/Hello.java:/var/lib/cwl/job301600808_tmp94qFiM/Hello.java:ro --volume<span class="o">=</span>/tmp/tmpu1iaKL:/var/spool/cwl:rw --volume<span class="o">=</span>/tmp/tmpfZnNdR:/tmp:rw --workdir<span class="o">=</span>/var/spool/cwl --read-only<span class="o">=</span><span class="nb">true</span> --net<span class="o">=</span>none --user<span class="o">=</span><span class="m">1001</span> --rm --env<span class="o">=</span><span class="nv">TMPDIR</span><span class="o">=</span>/tmp java:7 javac -d /var/spool/cwl /var/lib/cwl/job301600808_tmp94qFiM/Hello.java
+<span class="o">[</span>step compile<span class="o">]</span> completion status is success
+<span class="o">[</span>workflow 1st-workflow.cwl<span class="o">]</span> outdir is /home/example
 Final process status is success
-{
-  &quot;compiled_class&quot;: {
-    &quot;location&quot;: &quot;/home/example/Hello.class&quot;,
-    &quot;checksum&quot;: &quot;sha1$e68df795c0686e9aa1a1195536bd900f5f417b18&quot;,
-    &quot;class&quot;: &quot;File&quot;,
-    &quot;size&quot;: 416
-  }
-}
+<span class="o">{</span>
+  <span class="s2">&quot;compiled_class&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;/home/example/Hello.class&quot;</span>,
+    <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$e68df795c0686e9aa1a1195536bd900f5f417b18</span><span class="s2">&quot;</span>,
+    <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">416</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>What’s going on here?  Let’s break it down:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cwlVersion</span><span class="p">:</span> <span class="n">v1</span><span class="mf">.0</span>
-<span class="n">class</span><span class="p">:</span> <span class="n">Workflow</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+<span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cwlVersion</span></code> field indicates the version of the CWL spec used by the
 document.  The <code class="docutils literal notranslate"><span class="pre">class</span></code> field indicates this document describes a workflow.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span><span class="p">:</span>
-  <span class="n">tarball</span><span class="p">:</span> <span class="n">File</span>
-  <span class="n">name_of_file_to_extract</span><span class="p">:</span> <span class="n">string</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">tarball</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name_of_file_to_extract</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">inputs</span></code> section describes the inputs of the workflow.  This is a
 list of input parameters where each parameter consists of an identifier
 and a data type.  These parameters can be used as sources for input to
 specific workflows steps.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span><span class="p">:</span>
-  <span class="n">compiled_class</span><span class="p">:</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">File</span>
-    <span class="n">outputSource</span><span class="p">:</span> <span class="nb">compile</span><span class="o">/</span><span class="n">classfile</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">compiled_class</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputSource</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compile/classfile</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">outputs</span></code> section describes the outputs of the workflow.  This is a
 list of output parameters where each parameter consists of an identifier
 and a data type.  The <code class="docutils literal notranslate"><span class="pre">outputSource</span></code> connects the output parameter <code class="docutils literal notranslate"><span class="pre">classfile</span></code>
 of the <code class="docutils literal notranslate"><span class="pre">compile</span></code> step to the workflow output parameter <code class="docutils literal notranslate"><span class="pre">compiled_class</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">steps</span><span class="p">:</span>
-  <span class="n">untar</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">:</span> <span class="n">tar</span><span class="o">-</span><span class="n">param</span><span class="o">.</span><span class="n">cwl</span>
-    <span class="ow">in</span><span class="p">:</span>
-      <span class="n">tarfile</span><span class="p">:</span> <span class="n">tarball</span>
-      <span class="n">extractfile</span><span class="p">:</span> <span class="n">name_of_file_to_extract</span>
-    <span class="n">out</span><span class="p">:</span> <span class="p">[</span><span class="n">extracted_file</span><span class="p">]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">untar</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tar-param.cwl</span><span class="w"></span>
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tarfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tarball</span><span class="w"></span>
+<span class="w">      </span><span class="nt">extractfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name_of_file_to_extract</span><span class="w"></span>
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">extracted_file</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">steps</span></code> section describes the actual steps of the workflow.  In this
@@ -434,11 +434,11 @@ assigned to <code class="docutils literal notranslate"><span class="pre">tarball
 parameters <code class="docutils literal notranslate"><span class="pre">tarfile</span></code> and <code class="docutils literal notranslate"><span class="pre">extractfile</span></code> in order to run the tool.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">out</span></code> section of the workflow step lists the output parameters that are
 expected from the tool.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="nb">compile</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">:</span> <span class="n">arguments</span><span class="o">.</span><span class="n">cwl</span>
-    <span class="ow">in</span><span class="p">:</span>
-      <span class="n">src</span><span class="p">:</span> <span class="n">untar</span><span class="o">/</span><span class="n">extracted_file</span>
-    <span class="n">out</span><span class="p">:</span> <span class="p">[</span><span class="n">classfile</span><span class="p">]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">compile</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arguments.cwl</span><span class="w"></span>
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">untar/extracted_file</span><span class="w"></span>
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">classfile</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The second step <code class="docutils literal notranslate"><span class="pre">compile</span></code> depends on the results from the first step by

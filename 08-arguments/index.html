@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -327,7 +327,7 @@ directories in which they appear) may be read-only, so we need to
 instruct “javac” to write the class file to the designated output directory
 instead.</p>
 <p><em>arguments.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -357,40 +357,39 @@ instead.</p>
 </div>
 <p>Now create a sample Java file and invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> providing the tool wrapper
 and the input object on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;public class Hello {}&quot; &gt; Hello.java
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;public class Hello {}&quot;</span> &gt; Hello.java
 $ cwl-runner arguments.cwl arguments-job.yml
-[job arguments.cwl] /tmp/tmpwYALo1$ docker \
- run \
- -i \
- --volume=/home/peter/work/common-workflow-language/v1.0/examples/Hello.java:/var/lib/cwl/stg8939ac04-7443-4990-a518-1855b2322141/Hello.java:ro \
- --volume=/tmp/tmpwYALo1:/var/spool/cwl:rw \
- --volume=/tmp/tmpptIAJ8:/tmp:rw \
- --workdir=/var/spool/cwl \
- --read-only=true \
- --user=1001 \
- --rm \
- --env=TMPDIR=/tmp \
- --env=HOME=/var/spool/cwl \
- openjdk:9.0.1-11-slim \
- javac \
- -d \
- /var/spool/cwl \
+<span class="o">[</span>job arguments.cwl<span class="o">]</span> /tmp/tmpwYALo1$ docker <span class="se">\</span>
+ run <span class="se">\</span>
+ -i <span class="se">\</span>
+ --volume<span class="o">=</span>/home/peter/work/common-workflow-language/v1.0/examples/Hello.java:/var/lib/cwl/stg8939ac04-7443-4990-a518-1855b2322141/Hello.java:ro <span class="se">\</span>
+ --volume<span class="o">=</span>/tmp/tmpwYALo1:/var/spool/cwl:rw <span class="se">\</span>
+ --volume<span class="o">=</span>/tmp/tmpptIAJ8:/tmp:rw <span class="se">\</span>
+ --workdir<span class="o">=</span>/var/spool/cwl <span class="se">\</span>
+ --read-only<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+ --user<span class="o">=</span><span class="m">1001</span> <span class="se">\</span>
+ --rm <span class="se">\</span>
+ --env<span class="o">=</span><span class="nv">TMPDIR</span><span class="o">=</span>/tmp <span class="se">\</span>
+ --env<span class="o">=</span><span class="nv">HOME</span><span class="o">=</span>/var/spool/cwl <span class="se">\</span>
+ openjdk:9.0.1-11-slim <span class="se">\</span>
+ javac <span class="se">\</span>
+ -d <span class="se">\</span>
+ /var/spool/cwl <span class="se">\</span>
  /var/lib/cwl/stg8939ac04-7443-4990-a518-1855b2322141/Hello.java
 Final process status is success
-{
-  &quot;classfile&quot;: {
-    &quot;size&quot;: 416,
-    &quot;location&quot;: &quot;/home/example/Hello.class&quot;,
-    &quot;checksum&quot;: &quot;sha1$2f7ac33c1f3aac3f1fec7b936b6562422c85b38a&quot;,
-    &quot;class&quot;: &quot;File&quot;
-  }
-}
-
+<span class="o">{</span>
+  <span class="s2">&quot;classfile&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;size&quot;</span>: <span class="m">416</span>,
+    <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;/home/example/Hello.class&quot;</span>,
+    <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$2</span><span class="s2">f7ac33c1f3aac3f1fec7b936b6562422c85b38a&quot;</span>,
+    <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Here we use the <code class="docutils literal notranslate"><span class="pre">arguments</span></code> field to add an additional argument to the
 command line that isn’t tied to a specific input parameter.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>arguments: [&quot;-d&quot;, $(runtime.outdir)]
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-d&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">$(runtime.outdir)</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This example references a runtime parameter.  Runtime parameters provide

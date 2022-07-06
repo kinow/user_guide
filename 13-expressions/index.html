@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -322,13 +322,15 @@
 <code class="docutils literal notranslate"><span class="pre">InlineJavascriptRequirement</span></code> and then anywhere a parameter reference is
 legal you can provide a fragment of Javascript that will be evaluated by
 the CWL runner.</p>
-<p><strong>Note: JavaScript expressions should only be used when absolutely necessary.
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>JavaScript expressions should only be used when absolutely necessary.
 When manipulating file names, extensions, paths etc, consider whether one of the
 <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#File">built in <code class="docutils literal notranslate"><span class="pre">File</span></code> properties</a> like <code class="docutils literal notranslate"><span class="pre">basename</span></code>, <code class="docutils literal notranslate"><span class="pre">nameroot</span></code>, <code class="docutils literal notranslate"><span class="pre">nameext</span></code>,
 etc, could be used instead.
-See the <a class="reference external" href="https://www.commonwl.org/user_guide/rec-practices/">list of recommended practices</a>.</strong></p>
+See the <a class="reference external" href="https://www.commonwl.org/user_guide/rec-practices/">list of recommended practices</a>.</p>
 <p><em>expression.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -358,6 +360,7 @@ See the <a class="reference external" href="https://www.commonwl.org/user_guide/
 <span class="w">      </span><span class="no">}</span><span class="w"></span>
 </pre></div>
 </div>
+</div>
 <p>As this tool does not require any <code class="docutils literal notranslate"><span class="pre">inputs</span></code> we can run it with an (almost) empty
 job file:</p>
 <p><em>empty.yml</em></p>
@@ -368,101 +371,153 @@ job file:</p>
 descriptions are contained inside curly brackets <code class="docutils literal notranslate"><span class="pre">{}</span></code>, so an empty object is
 represented simply by a set of empty brackets.</p>
 <p>We can then run <code class="docutils literal notranslate"><span class="pre">expression.cwl</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner expression.cwl empty.yml
-[job expression.cwl] /home/example$ echo \
-    -A \
-    2 \
-    -B \
-    baz \
-    -C \
-    10 \
-    9 \
-    8 \
-    7 \
-    6 \
-    5 \
-    4 \
-    3 \
-    2 \
-    1 &gt; /home/example/output.txt
-[job expression.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/example/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$a739a6ff72d660d32111265e508ed2fc91f01a7c&quot;,
-        &quot;size&quot;: 36,
-        &quot;path&quot;: &quot;/home/example/output.txt&quot;
-    }
-}
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner expression.cwl empty.yml
+<span class="o">[</span>job expression.cwl<span class="o">]</span> /home/example$ <span class="nb">echo</span> <span class="se">\</span>
+    -A <span class="se">\</span>
+    <span class="m">2</span> <span class="se">\</span>
+    -B <span class="se">\</span>
+    baz <span class="se">\</span>
+    -C <span class="se">\</span>
+    <span class="m">10</span> <span class="se">\</span>
+    <span class="m">9</span> <span class="se">\</span>
+    <span class="m">8</span> <span class="se">\</span>
+    <span class="m">7</span> <span class="se">\</span>
+    <span class="m">6</span> <span class="se">\</span>
+    <span class="m">5</span> <span class="se">\</span>
+    <span class="m">4</span> <span class="se">\</span>
+    <span class="m">3</span> <span class="se">\</span>
+    <span class="m">2</span> <span class="se">\</span>
+    <span class="m">1</span> &gt; /home/example/output.txt
+<span class="o">[</span>job expression.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/example/output.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$a739a6ff72d660d32111265e508ed2fc91f01a7c</span><span class="s2">&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">36</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/example/output.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 $ cat output.txt
--A 2 -B baz -C 10 9 8 7 6 5 4 3 2 1
+-A <span class="m">2</span> -B baz -C <span class="m">10</span> <span class="m">9</span> <span class="m">8</span> <span class="m">7</span> <span class="m">6</span> <span class="m">5</span> <span class="m">4</span> <span class="m">3</span> <span class="m">2</span> <span class="m">1</span>
 </pre></div>
 </div>
 <p>Note that requirements can be provided with the map syntax, as in the example above:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="p">:</span>
-  <span class="n">InlineJavascriptRequirement</span><span class="p">:</span> <span class="p">{}</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">InlineJavascriptRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Or as an array, with each entry (in this case, only <code class="docutils literal notranslate"><span class="pre">class:</span> <span class="pre">InlineJavascriptRequirement</span></code>) marked by a <code class="docutils literal notranslate"><span class="pre">-</span></code>.
 The same syntax is used to describe the additional command line arguments.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">class</span><span class="p">:</span> <span class="n">InlineJavascriptRequirement</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InlineJavascriptRequirement</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; ## Where are JavaScript expressions allowed?
-&gt; Just like [parameter references](/_episodes/06-params.md), you can use JavaScript Expressions
-&gt; only in certain fields.  These are:
-&gt;
-&gt; - From [`CommandLineTool`](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandLineTool)
-&gt;   - `arguments`
-&gt;     - `valueFrom`
-&gt;   - `stdin`
-&gt;   - `stdout`
-&gt;   - `stderr`
-&gt;   - From [CommandInputParameter](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter)
-&gt;     - `format`
-&gt;     - `secondaryFiles`
-&gt;     - From [`inputBinding`](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandLineBinding)
-&gt;       - `valueFrom`
-&gt;   - From [CommandOutputParamater](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputParameter)
-&gt;     - `format`
-&gt;     - `secondaryFiles`
-&gt;     - From [CommandOutputBinding](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputBinding)
-&gt;       - `glob`
-&gt;       - `outputEval`
-&gt; - From `Workflow`
-&gt;   - From [InputParameter](https://www.commonwl.org/v1.0/Workflow.html#InputParameter) and [WorkflowOutputParameter](https://www.commonwl.org/v1.0/Workflow.html#WorkflowOutputParameter)
-&gt;     - `format`
-&gt;     - `secondaryFiles`
-&gt;   - From `steps`
-&gt;     - From [WorkflowStepInput](https://www.commonwl.org/v1.0/Workflow.html#WorkflowStepInput)
-&gt;       - `valueFrom`
-&gt; - From [ExpressionTool](https://www.commonwl.org/v1.0/Workflow.html#ExpressionTool)
-&gt;   - `expression`
-&gt;   - From [InputParameter](https://www.commonwl.org/v1.0/Workflow.html#InputParameter) and [ExpressionToolOutputParameter](https://www.commonwl.org/v1.0/Workflow.html#ExpressionToolOutputParameter)
-&gt;     - `format`
-&gt;     - `secondaryFiles`
-&gt; - From [`ResourceRequirement`](https://www.commonwl.org/v1.0/CommandLineTool.html#ResourceRequirement)
-&gt;   - `coresMin`
-&gt;   - `coresMax`
-&gt;   - `ramMin`
-&gt;   - `ramMax`
-&gt;   - `tmpdirMin`
-&gt;   - `tmpdirMax`
-&gt;   - `outdirMin`
-&gt;   - `outdirMax`
-&gt; - From [`InitialWorkDirRequirement`](https://www.commonwl.org/v1.0/CommandLineTool.html#InitialWorkDirRequirement)
-&gt;   - `listing`
-&gt;   - in [Dirent](https://www.commonwl.org/v1.0/CommandLineTool.html#Dirent)
-&gt;     - `entry`
-&gt;     - `entryname`
-&gt; - From `EnvVarRequirement`
-&gt;   - From [EnvironmentDef](https://www.commonwl.org/v1.0/CommandLineTool.html#EnvironmentDef)
-&gt;     - `envValue`
-</pre></div>
+<div class="admonition-where-are-javascript-expressions-allowed admonition">
+<p class="admonition-title">Where are JavaScript expressions allowed?</p>
+<p>Just like <a class="reference internal" href="../06-params/index.html"><span class="doc std std-doc">parameter references</span></a>, you can use JavaScript Expressions
+only in certain fields.  These are:</p>
+<ul class="simple">
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#CommandLineTool"><code class="docutils literal notranslate"><span class="pre">CommandLineTool</span></code></a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">arguments</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">valueFrom</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stdin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stdout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stderr</span></code></p></li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter">CommandInputParameter</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secondaryFiles</span></code></p></li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#CommandLineBinding"><code class="docutils literal notranslate"><span class="pre">inputBinding</span></code></a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">valueFrom</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputParameter">CommandOutputParamater</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secondaryFiles</span></code></p></li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputBinding">CommandOutputBinding</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">glob</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outputEval</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>From <code class="docutils literal notranslate"><span class="pre">Workflow</span></code></p>
+<ul>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#InputParameter">InputParameter</a> and <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#WorkflowOutputParameter">WorkflowOutputParameter</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secondaryFiles</span></code></p></li>
+</ul>
+</li>
+<li><p>From <code class="docutils literal notranslate"><span class="pre">steps</span></code></p>
+<ul>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#WorkflowStepInput">WorkflowStepInput</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">valueFrom</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#ExpressionTool">ExpressionTool</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">expression</span></code></p></li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#InputParameter">InputParameter</a> and <a class="reference external" href="https://www.commonwl.org/v1.0/Workflow.html#ExpressionToolOutputParameter">ExpressionToolOutputParameter</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secondaryFiles</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#ResourceRequirement"><code class="docutils literal notranslate"><span class="pre">ResourceRequirement</span></code></a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">coresMin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coresMax</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ramMin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ramMax</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmpdirMin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmpdirMax</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outdirMin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outdirMax</span></code></p></li>
+</ul>
+</li>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#InitialWorkDirRequirement"><code class="docutils literal notranslate"><span class="pre">InitialWorkDirRequirement</span></code></a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">listing</span></code></p></li>
+<li><p>in <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#Dirent">Dirent</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">entry</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entryname</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>From <code class="docutils literal notranslate"><span class="pre">EnvVarRequirement</span></code></p>
+<ul>
+<li><p>From <a class="reference external" href="https://www.commonwl.org/v1.0/CommandLineTool.html#EnvironmentDef">EnvironmentDef</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">envValue</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 

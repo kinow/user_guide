@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -322,7 +322,7 @@
 variables from the parent process.  You can set environment variables for
 the tool using <code class="docutils literal notranslate"><span class="pre">EnvVarRequirement</span></code>.</p>
 <p><em>env.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -345,25 +345,25 @@ the tool using <code class="docutils literal notranslate"><span class="pre">EnvV
 </div>
 <p>Now invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool wrapper and the input object on the
 command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner env.cwl echo-job.yml
-[job env.cwl] /home/example$ env &gt; /home/example/output.txt
-[job env.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/example/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$1ca16a840b14807b2fd3323022c476b06a150e2f&quot;,
-        &quot;size&quot;: 94,
-        &quot;path&quot;: &quot;/home/example/output.txt&quot;
-    }
-}
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner env.cwl echo-job.yml
+<span class="o">[</span>job env.cwl<span class="o">]</span> /home/example$ env &gt; /home/example/output.txt
+<span class="o">[</span>job env.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/example/output.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$1</span><span class="s2">ca16a840b14807b2fd3323022c476b06a150e2f&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">94</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/example/output.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 $ cat output.txt
-HELLO=Hello world!
-PATH=/bin:/usr/bin:/usr/local/bin
-HOME=/home/example
-TMPDIR=/tmp/tmp63Obpk
+<span class="nv">HELLO</span><span class="o">=</span>Hello world!
+<span class="nv">PATH</span><span class="o">=</span>/bin:/usr/bin:/usr/local/bin
+<span class="nv">HOME</span><span class="o">=</span>/home/example
+<span class="nv">TMPDIR</span><span class="o">=</span>/tmp/tmp63Obpk
 </pre></div>
 </div>
 </section>

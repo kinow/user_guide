@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -326,7 +326,7 @@ the CWL description directly.</p>
 <p>The example below is a CWL description of the <a class="reference external" href="http://biom-format.org/">biom convert format</a> tool for
 converting a standard biom table file to hd5 format.</p>
 <p><em>custom-types.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner </span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner </span><span class="w"></span>
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 
@@ -401,21 +401,21 @@ converting a standard biom table file to hd5 format.</p>
 </pre></div>
 </div>
 <p><em><strong>Note:</strong></em> To follow the example below, you need to download the example input file, <em>rich_sparse_otu_table.biom</em>. The file is available from <a class="reference external" href="https://raw.githubusercontent.com/common-workflow-language/user_guide/gh-pages/_includes/cwl/19-custom-types/rich_sparse_otu_table.biom">https://raw.githubusercontent.com/common-workflow-language/user_guide/gh-pages/_includes/cwl/19-custom-types/rich_sparse_otu_table.biom</a> and can be downloaded e.g. via <code class="docutils literal notranslate"><span class="pre">wget</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">common</span><span class="o">-</span><span class="n">workflow</span><span class="o">-</span><span class="n">language</span><span class="o">/</span><span class="n">user_guide</span><span class="o">/</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">/</span><span class="n">_includes</span><span class="o">/</span><span class="n">cwl</span><span class="o">/</span><span class="mi">19</span><span class="o">-</span><span class="n">custom</span><span class="o">-</span><span class="n">types</span><span class="o">/</span><span class="n">rich_sparse_otu_table</span><span class="o">.</span><span class="n">biom</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://raw.githubusercontent.com/common-workflow-language/user_guide/gh-pages/_includes/cwl/19-custom-types/rich_sparse_otu_table.biom
 </pre></div>
 </div>
 <p>On line 29, in <code class="docutils literal notranslate"><span class="pre">inputs:table_type</span></code>, a list of allowable table options to be used in the
 table conversion are imported as a custom object:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span><span class="p">:</span>
-  <span class="n">biom</span><span class="p">:</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">File</span>
-    <span class="nb">format</span><span class="p">:</span> <span class="n">edam</span><span class="p">:</span><span class="n">format_3746</span>  <span class="c1"># BIOM</span>
-    <span class="n">inputBinding</span><span class="p">:</span>
-      <span class="n">prefix</span><span class="p">:</span> <span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="n">fp</span>
-  <span class="n">table_type</span><span class="p">:</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">biom</span><span class="o">-</span><span class="n">convert</span><span class="o">-</span><span class="n">table</span><span class="o">.</span><span class="n">yaml</span><span class="c1">#table_type</span>
-    <span class="n">inputBinding</span><span class="p">:</span>
-      <span class="n">prefix</span><span class="p">:</span> <span class="o">--</span><span class="n">table</span><span class="o">-</span><span class="nb">type</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">inputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">biom</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edam:format_3746</span><span class="w">  </span><span class="c1"># BIOM</span><span class="w"></span>
+<span class="w">    </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--input-fp</span><span class="w"></span>
+<span class="w">  </span><span class="nt">table_type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biom-convert-table.yaml#table_type</span><span class="w"></span>
+<span class="w">    </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--table-type</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The reference to a custom type is a combination of the name of the file in which
@@ -442,14 +442,14 @@ tells the tool to create an OTU table in hd5 format.</p>
 <p>In order for the custom type to be used in the CWL description, it must be
 imported. Imports are described in <code class="docutils literal notranslate"><span class="pre">requirements:SchemaDefRequirement</span></code>, as
 below in the example <code class="docutils literal notranslate"><span class="pre">custom-types.cwl</span></code> description:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>requirements:
-  InlineJavascriptRequirement: {}
-  ResourceRequirement:
-    coresMax: 1
-    ramMin: 100
-  SchemaDefRequirement:
-    types:
-      - $import: biom-convert-table.yaml
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">InlineJavascriptRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ResourceRequirement</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">coresMax</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">ramMin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
+<span class="w">  </span><span class="nt">SchemaDefRequirement</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$import</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biom-convert-table.yaml</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Note also that the author of this CWL description has also included

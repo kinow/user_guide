@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -232,10 +232,10 @@ where <code class="docutils literal notranslate"><span class="pre">SPDX-ID</span
 example snippet below for guidance. For non-standard licenses without an SPDX
 identifier, provide a URL to the license.</p>
 <p><em>Example of metadata field for license with SPDX identifier:</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$namespaces:
-  s: https://schema.org/
-s:license: https://spdx.org/licenses/Apache-2.0
-# other s: declarations
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">$namespaces</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://schema.org/</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">s:license</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://spdx.org/licenses/Apache-2.0</span><span class="w"></span>
+<span class="c1"># other s: declarations</span><span class="w"></span>
 </pre></div>
 </div>
 <p>For more examples of providing metadata within CWL descriptions, see the

@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -320,7 +320,7 @@
 <h1>First Example<a class="headerlink" href="#first-example" title="Permalink to this headline">#</a></h1>
 <p>The simplest “hello world” program.  This accepts one input parameter, writes a message to the terminal or job log, and produces
 no permanent output.
-CWL documents are written in [JSON][json] or [YAML][yaml], or a mix of the two.
+CWL documents are written in <a class="reference external" href="http://json.org/">JSON</a> or <a class="reference external" href="http://yaml.org/">YAML</a>, or a mix of the two.
 We will use YAML throughout this guide.
 If you are not familiar with YAML,
 you may find it helpful to refer to
@@ -328,7 +328,7 @@ you may find it helpful to refer to
 <p>First, create a file called <code class="docutils literal notranslate"><span class="pre">1st-tool.cwl</span></code>, containing the boxed text below. It will help you to use a text editor that can be
 specified to produce text in YAML or JSON. Whatever text editor you use, the indents you see should not be created using tabs.</p>
 <p><em>1st-tool.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -360,13 +360,13 @@ Final process status is success
 <p>The command <code class="docutils literal notranslate"><span class="pre">cwl-runner</span> <span class="pre">1st-tool.cwl</span> <span class="pre">echo-job.yml</span></code> is an example of a general form that you will often come across while using
 CWL. The general form is <code class="docutils literal notranslate"><span class="pre">cwl-runner</span> <span class="pre">[tool-or-workflow-description]</span> <span class="pre">[input-job-settings]</span></code></p>
 <p>What’s going on here?  Let’s break down the contents of <code class="docutils literal notranslate"><span class="pre">1st-tool.cwl</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cwlVersion</span></code> field indicates the version of the CWL spec used by the document.  The <code class="docutils literal notranslate"><span class="pre">class</span></code> field indicates this document
 describes a command line tool.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">baseCommand</span></code> provides the name of program that will actually run (<code class="docutils literal notranslate"><span class="pre">echo</span></code>). <code class="docutils literal notranslate"><span class="pre">echo</span></code> is a built-in program in the bash and
@@ -388,7 +388,7 @@ The <code class="docutils literal notranslate"><span class="pre">inputBinding</s
 on the command line.
 In this example,
 the <code class="docutils literal notranslate"><span class="pre">position</span></code> field indicates where it should appear on the command line.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This tool has no formal output, so the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> section is an empty list.</p>

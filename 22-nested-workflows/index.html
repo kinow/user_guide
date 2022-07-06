@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -322,14 +322,14 @@
 We can also think of a workflow as being a tool itself; a CWL workflow can be
 used as a step in another CWL workflow, if the workflow engine supports the
 <code class="docutils literal notranslate"><span class="pre">SubworkflowFeatureRequirement</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="p">:</span>
-  <span class="n">SubworkflowFeatureRequirement</span><span class="p">:</span> <span class="p">{}</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">SubworkflowFeatureRequirement</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Here’s an example workflow that uses our <code class="docutils literal notranslate"><span class="pre">1st-workflow.cwl</span></code> as a nested
 workflow:</p>
 <p><em>nestedworkflows.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workflow</span><span class="w"></span>
@@ -380,30 +380,28 @@ workflow:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<blockquote>
-<div><p class="rubric">Visualization of the workflow and the inner workflow from its `compile` step</p>
-This two-step workflow starts with the `create-tar` step which is connected to
-the `compile` step in orange; `compile` is another workflow, diagrammed on the
-right. In purple we see the fixed string `"Hello.java"` being supplied as the
-`name_of_file_to_extract`.
+<p class="rubric">Visualization of the workflow and the inner workflow from its `compile` step</a>
+<p>This two-step workflow starts with the <code class="docutils literal notranslate"><span class="pre">create-tar</span></code> step which is connected to
+the <code class="docutils literal notranslate"><span class="pre">compile</span></code> step in orange; <code class="docutils literal notranslate"><span class="pre">compile</span></code> is another workflow, diagrammed on the
+right. In purple we see the fixed string <code class="docutils literal notranslate"><span class="pre">&quot;Hello.java&quot;</span></code> being supplied as the
+<code class="docutils literal notranslate"><span class="pre">name_of_file_to_extract</span></code>.</p>
 <p><a href="https://view.commonwl.org/workflows/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/22-nested-workflows/nestedworkflows.cwl"><img
 src="https://view.commonwl.org/graph/svg/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/22-nested-workflows/nestedworkflows.cwl"
 alt="Visualization of nestedworkflows.cwl" /></a>
 <a href="https://view.commonwl.org/workflows/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/22-nested-workflows/1st-workflow.cwl"><img
 src="https://view.commonwl.org/graph/svg/github.com/common-workflow-language/user_guide/blob/gh-pages/_includes/cwl/22-nested-workflows/1st-workflow.cwl"
 alt="Visualization of 1st-workflow.cwl" /></a></p>
-</div></blockquote>
 </div>
 <p>A CWL <code class="docutils literal notranslate"><span class="pre">Workflow</span></code> can be used as a <code class="docutils literal notranslate"><span class="pre">step</span></code> just like a <code class="docutils literal notranslate"><span class="pre">CommandLineTool</span></code>, its CWL
 file is included with <code class="docutils literal notranslate"><span class="pre">run</span></code>. The workflow inputs (<code class="docutils literal notranslate"><span class="pre">tarball</span></code> and <code class="docutils literal notranslate"><span class="pre">name_of_file_to_extract</span></code>) and outputs
 (<code class="docutils literal notranslate"><span class="pre">compiled_class</span></code>) then can be mapped to become the step’s input/outputs.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="nb">compile</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">:</span> <span class="mi">1</span><span class="n">st</span><span class="o">-</span><span class="n">workflow</span><span class="o">.</span><span class="n">cwl</span>
-    <span class="ow">in</span><span class="p">:</span>
-      <span class="n">tarball</span><span class="p">:</span> <span class="n">create</span><span class="o">-</span><span class="n">tar</span><span class="o">/</span><span class="n">tar_compressed_java_file</span>
-      <span class="n">name_of_file_to_extract</span><span class="p">:</span>
-        <span class="n">default</span><span class="p">:</span> <span class="s2">&quot;Hello.java&quot;</span>
-    <span class="n">out</span><span class="p">:</span> <span class="p">[</span><span class="n">compiled_class</span><span class="p">]</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">compile</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1st-workflow.cwl</span><span class="w"></span>
+<span class="w">    </span><span class="nt">in</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tarball</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create-tar/tar_compressed_java_file</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name_of_file_to_extract</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello.java&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">out</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">compiled_class</span><span class="p p-Indicator">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Our <code class="docutils literal notranslate"><span class="pre">1st-workflow.cwl</span></code> was parameterized with workflow inputs, so when running
@@ -419,32 +417,32 @@ appear in its usage as a tool.</p>
 dependencies in the job file. So in this workflow we can generate a hard-coded
 <code class="docutils literal notranslate"><span class="pre">Hello.java</span></code> file using the previously mentioned <code class="docutils literal notranslate"><span class="pre">InitialWorkDirRequirement</span></code>
 requirement, before adding it to a tar file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">create</span><span class="o">-</span><span class="n">tar</span><span class="p">:</span>
-    <span class="n">requirements</span><span class="p">:</span>
-      <span class="n">InitialWorkDirRequirement</span><span class="p">:</span>
-        <span class="n">listing</span><span class="p">:</span>
-          <span class="o">-</span> <span class="n">entryname</span><span class="p">:</span> <span class="n">Hello</span><span class="o">.</span><span class="n">java</span>
-            <span class="n">entry</span><span class="p">:</span> <span class="o">|</span>
-              <span class="n">public</span> <span class="k">class</span> <span class="nc">Hello</span> <span class="p">{</span>
-                <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;Hello from Java&quot;</span><span class="p">);</span>
-                <span class="p">}</span>
-              <span class="p">}</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">create-tar</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">InitialWorkDirRequirement</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">listing</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entryname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hello.java</span><span class="w"></span>
+<span class="w">            </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">              </span><span class="no">public class Hello {</span><span class="w"></span>
+<span class="w">                </span><span class="no">public static void main(String[] argv) {</span><span class="w"></span>
+<span class="w">                    </span><span class="no">System.out.println(&quot;Hello from Java&quot;);</span><span class="w"></span>
+<span class="w">                </span><span class="no">}</span><span class="w"></span>
+<span class="w">              </span><span class="no">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>In this case our step can assume <code class="docutils literal notranslate"><span class="pre">Hello.java</span></code> rather than be parameterized, so
 we can use hardcoded values <code class="docutils literal notranslate"><span class="pre">hello.tar</span></code> and <code class="docutils literal notranslate"><span class="pre">Hello.java</span></code> in a <code class="docutils literal notranslate"><span class="pre">baseCommand</span></code> and
 the resulting <code class="docutils literal notranslate"><span class="pre">outputs</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">run</span><span class="p">:</span>
-    <span class="n">class</span><span class="p">:</span> <span class="n">CommandLineTool</span>
-    <span class="n">inputs</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="n">baseCommand</span><span class="p">:</span> <span class="p">[</span><span class="n">tar</span><span class="p">,</span> <span class="o">--</span><span class="n">create</span><span class="p">,</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">hello</span><span class="o">.</span><span class="n">tar</span><span class="p">,</span> <span class="n">Hello</span><span class="o">.</span><span class="n">java</span><span class="p">]</span>
-    <span class="n">outputs</span><span class="p">:</span>
-      <span class="n">tar_compressed_java_file</span><span class="p">:</span>
-        <span class="nb">type</span><span class="p">:</span> <span class="n">File</span>
-        <span class="n">streamable</span><span class="p">:</span> <span class="n">true</span>
-        <span class="n">outputBinding</span><span class="p">:</span>
-          <span class="n">glob</span><span class="p">:</span> <span class="s2">&quot;hello.tar&quot;</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
+<span class="w">    </span><span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">tar</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">--create</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">--file=hello.tar</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Hello.java</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tar_compressed_java_file</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">        </span><span class="nt">streamable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hello.tar&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Did you notice that we didn’t split out the <code class="docutils literal notranslate"><span class="pre">tar</span> <span class="pre">--create</span></code> tool to a separate file,

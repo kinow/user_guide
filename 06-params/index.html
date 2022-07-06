@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -322,13 +322,13 @@
 However, that example was very limited because it assumed that the file
 we were interested in was called “hello.txt”, and this was written into the
 <code class="docutils literal notranslate"><span class="pre">.cwl</span></code> file. This is not the best way to do this, as the “hello.txt” filename
-may vary or be dependant on the input file(s) used.  To avoid this we can
+may vary or be dependent on the input file(s) used.  To avoid this we can
 specify the name of the file we want in the job parameters file (<code class="docutils literal notranslate"><span class="pre">.yml</span></code>). In
 this example, you will see how to reference the value of input parameters
 dynamically from other fields, which will allow us to then specify the name of
 the file to extract.</p>
 <p><em>tar-param.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -358,33 +358,33 @@ the file to extract.</p>
 </div>
 <p>Create your input files and invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool wrapper and the
 input object on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm hello.tar || true &amp;&amp; touch goodbye.txt &amp;&amp; tar -cvf hello.tar goodbye.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ rm hello.tar <span class="o">||</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> touch goodbye.txt <span class="o">&amp;&amp;</span> tar -cvf hello.tar goodbye.txt
 $ cwl-runner tar-param.cwl tar-param-job.yml
-[job tar-param.cwl] /tmp/tmpwH4ouT$ tar \
-    --extract --file \
-    /tmp/tmpREYiEt/stgd7764383-99c9-4848-af51-7c2d6e5527d9/hello.tar \
+<span class="o">[</span>job tar-param.cwl<span class="o">]</span> /tmp/tmpwH4ouT$ tar <span class="se">\</span>
+    --extract --file <span class="se">\</span>
+    /tmp/tmpREYiEt/stgd7764383-99c9-4848-af51-7c2d6e5527d9/hello.tar <span class="se">\</span>
     goodbye.txt
-[job tar-param.cwl] completed success
-{
-    &quot;extracted_file&quot;: {
-        &quot;location&quot;: &quot;file:///home/me/cwl/user_guide/goodbye.txt&quot;,
-        &quot;basename&quot;: &quot;goodbye.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709&quot;,
-        &quot;size&quot;: 0,
-        &quot;path&quot;: &quot;/home/me/cwl/user_guide/goodbye.txt&quot;
-    }
-}
+<span class="o">[</span>job tar-param.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;extracted_file&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/me/cwl/user_guide/goodbye.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;goodbye.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$da39a3ee5e6b4b0d3255bfef95601890afd80709</span><span class="s2">&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">0</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/me/cwl/user_guide/goodbye.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 </pre></div>
 </div>
 <p>Certain fields permit parameter references which are enclosed in <code class="docutils literal notranslate"><span class="pre">$(...)</span></code>.
 These are evaluated and replaced with value being referenced.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>outputs:
-  extracted_out:
-    type: File
-    outputBinding:
-      glob: $(inputs.extractfile)
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">outputs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">extracted_out</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File</span><span class="w"></span>
+<span class="w">    </span><span class="nt">outputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(inputs.extractfile)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>References are written using a subset of Javascript syntax.  In this
@@ -396,11 +396,9 @@ CWL tool was invoked.</p>
 input file you must reference the path field on a file object; to
 reference the path to the tar file in the above example you would write
 <code class="docutils literal notranslate"><span class="pre">$(inputs.tarfile.path)</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<blockquote>
-<div><p class="rubric">Where are parameter references allowed?</p>
-You can only use parameter references in certain fields.  These are:
+<div class="admonition-where-are-parameter-references-allowed admonition">
+<p class="admonition-title">Where are parameter references allowed?</p>
+<p>You can only use parameter references in certain fields.  These are:</p>
 <ul class="simple">
 <li><p>From <a class="reference external" href="http://www.commonwl.org/v1.0/CommandLineTool.html#CommandLineTool"><code class="docutils literal notranslate"><span class="pre">CommandLineTool</span></code></a></p>
 <ul>
@@ -500,7 +498,6 @@ You can only use parameter references in certain fields.  These are:
 </ul>
 </li>
 </ul>
-</div></blockquote>
 </div>
 </section>
 

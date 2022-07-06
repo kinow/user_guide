@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -333,13 +333,13 @@ fields related to GUI presentation) and metadata about the tool or workflow
 itself (for example, authorship for use in citations) may be provided as
 additional fields on any object. Such extensions fields (e.g. <code class="docutils literal notranslate"><span class="pre">format:</span> <span class="pre">edam:format_2572</span></code>)
 can use a namespace prefix listed in the <code class="docutils literal notranslate"><span class="pre">$namespaces</span></code> section of the document
-(e.g edam: http://edamontology.org/) as described in the <a class="reference external" href="https://www.commonwl.org/v1.0/SchemaSalad.html#Explicit_context">Schema Salad specification</a>.
+(e.g. edam: http://edamontology.org/) as described in the <a class="reference external" href="https://www.commonwl.org/v1.0/SchemaSalad.html#Explicit_context">Schema Salad specification</a>.
 Once you add the namespace prefix, you can access it anywhere in the document as shown below.
-Otherwise one must use full URLs: <code class="docutils literal notranslate"><span class="pre">format:</span> <span class="pre">http://edamontology.org/format_2572</span></code>.</p>
+Otherwise, one must use full URLs: <code class="docutils literal notranslate"><span class="pre">format:</span> <span class="pre">http://edamontology.org/format_2572</span></code>.</p>
 <p>For all developers, we recommend the following minimal metadata for your tool
 and workflows. This example includes metadata allowing others to cite your tool.</p>
 <p><em>metadata_example2.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 
@@ -391,7 +391,9 @@ and workflows. This example includes metadata allowing others to cite your tool.
 </pre></div>
 </div>
 <p>The equivalent of this CWL description in command line format is:</p>
-<p><code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span> <span class="pre">/path/to/aligned_sequences.ext</span> <span class="pre">&gt;</span> <span class="pre">output.txt</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wc -l /path/to/aligned_sequences.ext &gt; output.txt
+</pre></div>
+</div>
 <section id="extended-example">
 <h2>Extended Example<a class="headerlink" href="#extended-example" title="Permalink to this headline">#</a></h2>
 <p>For those that are highly motivated, it is also possible to annotate your tool
@@ -399,7 +401,7 @@ with a much larger amount of metadata. This example includes EDAM ontology tags
 as keywords (allowing the grouping of related tools), hints at hardware
 requirements in order to use the tool, and a few more metadata fields.</p>
 <p><em>metadata_example3.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 

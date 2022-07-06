@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -323,7 +323,7 @@ together (they are dependent) or several arguments that cannot be provided
 together (they are exclusive).  You can use records and type unions to group
 parameters together to describe these two conditions.</p>
 <p><em>record.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -371,11 +371,11 @@ parameters together to describe these two conditions.</p>
 <span class="w">  </span><span class="nt">itemC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">three</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner record.cwl record-job1.yml
-Workflow error, try again with --debug for more information:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner record.cwl record-job1.yml
+Workflow error, try again with --debug <span class="k">for</span> more information:
 Invalid job input record:
-record-job1.yml:1:1: the `dependent_parameters` field is not valid because
-                       missing required field `itemB`
+record-job1.yml:1:1: the <span class="sb">`</span>dependent_parameters<span class="sb">`</span> field is not valid because
+                       missing required field <span class="sb">`</span>itemB<span class="sb">`</span>
 </pre></div>
 </div>
 <p>In the first example, you can’t provide <code class="docutils literal notranslate"><span class="pre">itemA</span></code> without also providing <code class="docutils literal notranslate"><span class="pre">itemB</span></code>.</p>
@@ -388,29 +388,29 @@ record-job1.yml:1:1: the `dependent_parameters` field is not valid because
 <span class="w">  </span><span class="nt">itemD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">four</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner record.cwl record-job2.yml
-record-job2.yml:6:3: invalid field `itemD`, expected one of: &#39;itemC&#39;
-[job record.cwl] /home/example$ echo \
-    -A \
-    one \
-    -B \
-    two \
-    -C \
-    three &gt; /home/example/output.txt
-[job record.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/example/11-records/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$329fe3b598fed0dfd40f511522eaf386edb2d077&quot;,
-        &quot;size&quot;: 23,
-        &quot;path&quot;: &quot;/home/example/output.txt&quot;
-    }
-}
-Final process status is success
-$ cat output.txt
--A one -B two -C three
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ cwl-runner record.cwl record-job2.yml</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">record-job2.yml:6:3</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">invalid field `itemD`, expected one of</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;itemC&#39;</span><span class="w"></span>
+<span class="p p-Indicator">[</span><span class="nv">job record.cwl</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/example$ echo \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">-A \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">one \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">-B \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">two \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">-C \</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">three &gt; /home/example/output.txt</span><span class="w"></span>
+<span class="p p-Indicator">[</span><span class="nv">job record.cwl</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">completed success</span><span class="w"></span>
+<span class="p p-Indicator">{</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;example_out&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;location&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;file:///home/example/11-records/output.txt&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;basename&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;output.txt&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;class&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;File&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;checksum&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;sha1$329fe3b598fed0dfd40f511522eaf386edb2d077&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">23</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;path&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;/home/example/output.txt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">}</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">Final process status is success</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">$ cat output.txt</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">-A one -B two -C three</span><span class="w"></span>
 </pre></div>
 </div>
 <p>In the second example, <code class="docutils literal notranslate"><span class="pre">itemC</span></code> and <code class="docutils literal notranslate"><span class="pre">itemD</span></code> are exclusive, so only <code class="docutils literal notranslate"><span class="pre">itemC</span></code>
@@ -423,25 +423,25 @@ is added to the command line and <code class="docutils literal notranslate"><spa
 <span class="w">  </span><span class="nt">itemD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">four</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwl-runner record.cwl record-job3.yml
-[job record.cwl] /home/example$ echo \
-    -A \
-    one \
-    -B \
-    two \
-    -D \
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwl-runner record.cwl record-job3.yml
+<span class="o">[</span>job record.cwl<span class="o">]</span> /home/example$ <span class="nb">echo</span> <span class="se">\</span>
+    -A <span class="se">\</span>
+    one <span class="se">\</span>
+    -B <span class="se">\</span>
+    two <span class="se">\</span>
+    -D <span class="se">\</span>
     four &gt; /home/example/output.txt
-[job record.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/example/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$77f572b28e441240a5e30eb14f1d300bcc13a3b4&quot;,
-        &quot;size&quot;: 22,
-        &quot;path&quot;: &quot;/home/example/output.txt&quot;
-    }
-}
+<span class="o">[</span>job record.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/example/output.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$77</span><span class="s2">f572b28e441240a5e30eb14f1d300bcc13a3b4&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">22</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/example/output.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 $ cat output.txt
 -A one -B two -D four

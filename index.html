@@ -151,7 +151,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -215,22 +215,20 @@
 <p>Hello!</p>
 <!-- this is an html comment -->
 <p>This guide will introduce you to writing tool wrappers and workflows using the Common Workflow Language (CWL). This guide describes the stable specification, version 1.0. Updates to the guide for more recent versions are ongoing.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p class="rubric">Contributions and Feedback are Welcome!</p>
 <p>This document is a work in progress. Not all features are covered, yet.
 If you find that something is missing from this guide,
-or if you'd like to provide other feedback,
+or if you’d like to provide other feedback,
 we would be delighted if you would file an Issue on the
-<a href="https://github.com/common-workflow-language/user_guide/issues">
-project repository for this guide</a>.
+<a class="reference external" href="https://github.com/common-workflow-language/user_guide/issues">project repository for this guide</a>.
 You can also suggest changes directly
-by clicking the "Edit on GitHub" button at the top-right
+by clicking the “Edit on GitHub” button at the top-right
 of the relevant page.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p class="rubric">Prerequisites</p>
+<div class="admonition-prerequisites admonition">
+<p class="admonition-title">Prerequisites</p>
 <ul class="simple">
 <li><p>A text editor</p></li>
 <li><p>A CWL runner. It is recommended to start with the <a class="reference external" href="https://github.com/common-workflow-language/cwltool#install">reference implementation</a>. The full list of CWL runners is on <a class="reference external" href="https://www.commonwl.org/#Implementations">the project homepage</a>.</p></li>

@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -342,7 +342,7 @@ document in greater detail, so don’t worry about these for now.</p>
 <p>Note that for added value <code class="docutils literal notranslate"><span class="pre">cwltool</span></code> can do some basic reasoning based on file
 formats and warn you if there seem to be some obvious mismatches.</p>
 <p><em>metadata_example.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
 
@@ -389,29 +389,29 @@ parameterization.</p>
 </div>
 <p><em><strong>Note:</strong></em> To follow the example below, you need to download the example input file, <em>file-formats.bam</em>. The file is available from <a class="reference external" href="https://github.com/common-workflow-language/user_guide/raw/gh-pages/_includes/cwl/16-file-formats/file-formats.bam">https://github.com/common-workflow-language/user_guide/raw/gh-pages/_includes/cwl/16-file-formats/file-formats.bam
 </a> and can be downloaded e.g. via <code class="docutils literal notranslate"><span class="pre">wget</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">common</span><span class="o">-</span><span class="n">workflow</span><span class="o">-</span><span class="n">language</span><span class="o">/</span><span class="n">user_guide</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">/</span><span class="n">_includes</span><span class="o">/</span><span class="n">cwl</span><span class="o">/</span><span class="mi">16</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">formats</span><span class="o">/</span><span class="n">file</span><span class="o">-</span><span class="n">formats</span><span class="o">.</span><span class="n">bam</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/common-workflow-language/user_guide/raw/gh-pages/_includes/cwl/16-file-formats/file-formats.bam
 </pre></div>
 </div>
 <p>Now invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool wrapper and the input object on the
 command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cwltool metadata_example.cwl sample.yml
-/usr/local/bin/cwltool 1.0.20161114152756
-Resolved &#39;metadata_example.cwl&#39; to &#39;file:///media/large_volume/testing/cwl_tutorial2/metadata_example.cwl&#39;
-[job metadata_example.cwl] /tmp/tmpNWyAd6$ /bin/sh \
-    -c \
-    &#39;wc&#39; &#39;-l&#39; &#39;/tmp/tmpBf6m9u/stge293ac74-3d42-45c9-b506-dd35ea3e6eea/file-formats.bam&#39; &gt; /tmp/tmpNWyAd6/output.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cwltool metadata_example.cwl sample.yml
+/usr/local/bin/cwltool <span class="m">1</span>.0.20161114152756
+Resolved <span class="s1">&#39;metadata_example.cwl&#39;</span> to <span class="s1">&#39;file:///media/large_volume/testing/cwl_tutorial2/metadata_example.cwl&#39;</span>
+<span class="o">[</span>job metadata_example.cwl<span class="o">]</span> /tmp/tmpNWyAd6$ /bin/sh <span class="se">\</span>
+    -c <span class="se">\</span>
+    <span class="s1">&#39;wc&#39;</span> <span class="s1">&#39;-l&#39;</span> <span class="s1">&#39;/tmp/tmpBf6m9u/stge293ac74-3d42-45c9-b506-dd35ea3e6eea/file-formats.bam&#39;</span> &gt; /tmp/tmpNWyAd6/output.txt
 Final process status is success
-{
-  &quot;report&quot;: {
-    &quot;format&quot;: &quot;http://edamontology.org/format_1964&quot;,
-    &quot;checksum&quot;: &quot;sha1$49dc5004959ba9f1d07b8c00da9c46dd802cbe79&quot;,
-    &quot;basename&quot;: &quot;output.txt&quot;,
-    &quot;location&quot;: &quot;file:///media/large_volume/testing/cwl_tutorial2/output.txt&quot;,
-    &quot;path&quot;: &quot;/media/large_volume/testing/cwl_tutorial2/output.txt&quot;,
-    &quot;class&quot;: &quot;File&quot;,
-    &quot;size&quot;: 80
-  }
-}
+<span class="o">{</span>
+  <span class="s2">&quot;report&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;format&quot;</span>: <span class="s2">&quot;http://edamontology.org/format_1964&quot;</span>,
+    <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$49</span><span class="s2">dc5004959ba9f1d07b8c00da9c46dd802cbe79&quot;</span>,
+    <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+    <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///media/large_volume/testing/cwl_tutorial2/output.txt&quot;</span>,
+    <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/media/large_volume/testing/cwl_tutorial2/output.txt&quot;</span>,
+    <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">80</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </section>

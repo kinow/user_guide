@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -328,7 +328,7 @@ special types <em>File</em>, <em>Directory</em> and <em>Any</em>.</p>
 types and appearing on the command line in different ways.</p>
 <p>First, create a file called inp.cwl, containing the following:</p>
 <p><em>inp.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -373,73 +373,71 @@ types and appearing on the command line in different ways.</p>
 <p>Notice that “example_file”, as a <code class="docutils literal notranslate"><span class="pre">File</span></code> type, must be provided as an
 object with the fields <code class="docutils literal notranslate"><span class="pre">class:</span> <span class="pre">File</span></code> and <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
 <p>Next, create a whale.txt using <a class="reference external" href="http://www.linfo.org/touch.html">touch</a> by typing <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">whale.txt</span></code> on the command line and then invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> with the tool wrapper and the input object on the command line, using the command <code class="docutils literal notranslate"><span class="pre">cwl-runner</span> <span class="pre">inp.cwl</span> <span class="pre">inp-job.yml</span></code>. The following boxed text describes these two commands and the expected output from the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch whale.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ touch whale.txt
 $ cwl-runner inp.cwl inp-job.yml
-[job inp.cwl] /tmp/tmpzrSnfX$ echo \
-    -f \
-    -i42 \
-    --example-string \
-    hello \
-    --file=/tmp/tmpRBSHIG/stg979b6d24-d50a-47e3-9e9e-90097eed2cbc/whale.txt
--f -i42 --example-string hello --file=/tmp/tmpRBSHIG/stg979b6d24-d50a-47e3-9e9e-90097eed2cbc/whale.txt
-[job inp.cwl] completed success
-{}
+<span class="o">[</span>job inp.cwl<span class="o">]</span> /tmp/tmpzrSnfX$ <span class="nb">echo</span> <span class="se">\</span>
+    -f <span class="se">\</span>
+    -i42 <span class="se">\</span>
+    --example-string <span class="se">\</span>
+    hello <span class="se">\</span>
+    --file<span class="o">=</span>/tmp/tmpRBSHIG/stg979b6d24-d50a-47e3-9e9e-90097eed2cbc/whale.txt
+-f -i42 --example-string hello --file<span class="o">=</span>/tmp/tmpRBSHIG/stg979b6d24-d50a-47e3-9e9e-90097eed2cbc/whale.txt
+<span class="o">[</span>job inp.cwl<span class="o">]</span> completed success
+<span class="o">{}</span>
 Final process status is success
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<blockquote>
-<div><p class="rubric">Where did those `/tmp` paths come from?</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p class="rubric">Where did those `/tmp` paths come from?</p>
 <p>The CWL reference runner (cwltool) and other runners create temporary
 directories with symbolic (“soft”) links to your input files to ensure that
 the tools aren’t accidentally accessing files that were not explicitly
 specified</p>
-</div></blockquote>
 </div>
 <p>The field <code class="docutils literal notranslate"><span class="pre">inputBinding</span></code> is optional and indicates whether and how the
-input parameter should be appear on the tool’s command line.  If
+input parameter should appear on the tool’s command line.  If
 <code class="docutils literal notranslate"><span class="pre">inputBinding</span></code> is missing, the parameter does not appear on the command
 line.  Let’s look at each example in detail.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example_flag</span><span class="p">:</span>
-  <span class="nb">type</span><span class="p">:</span> <span class="n">boolean</span>
-  <span class="n">inputBinding</span><span class="p">:</span>
-    <span class="n">position</span><span class="p">:</span> <span class="mi">1</span>
-    <span class="n">prefix</span><span class="p">:</span> <span class="o">-</span><span class="n">f</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">example_flag</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span><span class="w"></span>
+<span class="w">  </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-f</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Boolean types are treated as a flag.  If the input parameter
 “example_flag” is “true”, then <code class="docutils literal notranslate"><span class="pre">prefix</span></code> will be added to the
 command line.  If false, no flag is added.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example_string</span><span class="p">:</span>
-  <span class="nb">type</span><span class="p">:</span> <span class="n">string</span>
-  <span class="n">inputBinding</span><span class="p">:</span>
-    <span class="n">position</span><span class="p">:</span> <span class="mi">3</span>
-    <span class="n">prefix</span><span class="p">:</span> <span class="o">--</span><span class="n">example</span><span class="o">-</span><span class="n">string</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">example_string</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">  </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--example-string</span><span class="w"></span>
 </pre></div>
 </div>
 <p>String types appear on the command line as literal values.  The <code class="docutils literal notranslate"><span class="pre">prefix</span></code>
 is optional, if provided, it appears as a separate argument on the
 command line before the parameter .  In the example above, this is
 rendered as <code class="docutils literal notranslate"><span class="pre">--example-string</span> <span class="pre">hello</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example_int</span><span class="p">:</span>
-  <span class="nb">type</span><span class="p">:</span> <span class="nb">int</span>
-  <span class="n">inputBinding</span><span class="p">:</span>
-    <span class="n">position</span><span class="p">:</span> <span class="mi">2</span>
-    <span class="n">prefix</span><span class="p">:</span> <span class="o">-</span><span class="n">i</span>
-    <span class="n">separate</span><span class="p">:</span> <span class="n">false</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">example_int</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w"></span>
+<span class="w">  </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-i</span><span class="w"></span>
+<span class="w">    </span><span class="nt">separate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Integer (and floating point) types appear on the command line with
 decimal text representation.  When the option <code class="docutils literal notranslate"><span class="pre">separate</span></code> is false (the
 default value is true), the prefix and value are combined into a single
 argument.  In the example above, this is rendered as <code class="docutils literal notranslate"><span class="pre">-i42</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>example_file:
-  type: File?
-  inputBinding:
-    prefix: --file=
-    separate: false
-    position: 4
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">example_file</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File?</span><span class="w"></span>
+<span class="w">  </span><span class="nt">inputBinding</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--file=</span><span class="w"></span>
+<span class="w">    </span><span class="nt">separate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
 </pre></div>
 </div>
 <p>File types appear on the command line as the path to the file.  When the

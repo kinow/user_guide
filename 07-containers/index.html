@@ -152,7 +152,7 @@
               <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links d-none d-md-block" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
@@ -332,7 +332,7 @@ input files to reflect the location where they appear inside the container.</p>
 <p>This example runs a simple Node.js script inside a Docker container which will
 then print “Hello World” to the standard output.</p>
 <p><em>docker.cwl</em></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/env cwl-runner</span><span class="w"></span>
 
 <span class="nt">cwlVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w"></span>
 <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommandLineTool</span><span class="w"></span>
@@ -360,10 +360,10 @@ then print “Hello World” to the standard output.</p>
 <p>Before we run this, lets just break it down and see what some bits do.  Most of this
 has been explained in previous sections, the only part that is really new is the <code class="docutils literal notranslate"><span class="pre">dockerRequirement</span></code>
 section.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">baseCommand</span><span class="p">:</span> <span class="n">node</span>
-<span class="n">hints</span><span class="p">:</span>
-  <span class="n">DockerRequirement</span><span class="p">:</span>
-    <span class="n">dockerPull</span><span class="p">:</span> <span class="n">node</span><span class="p">:</span><span class="n">slim</span>
+<div class="highlight-cwl notranslate"><div class="highlight"><pre><span></span><span class="nt">baseCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node</span><span class="w"></span>
+<span class="nt">hints</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">DockerRequirement</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dockerPull</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node:slim</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">baseCommand:</span> <span class="pre">node</span></code> tells CWL that we will be running this command in a container. We
@@ -375,34 +375,34 @@ best practises when using containers for reproducible research). In this case we
 used a container called <code class="docutils literal notranslate"><span class="pre">node:slim</span></code>.</p>
 <p>Provide a “hello.js” and invoke <code class="docutils literal notranslate"><span class="pre">cwl-runner</span></code> providing the tool wrapper and the
 input object on the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;console.log(\&quot;Hello World\&quot;);&quot; &gt; hello.js
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;console.log(\&quot;Hello World\&quot;);&quot;</span> &gt; hello.js
 $ cwl-runner docker.cwl docker-job.yml
-[job docker.cwl] /tmp/tmpgugLND$ docker \
-    run \
-    -i \
-    --volume=/tmp/tmpgugLND:/var/spool/cwl:rw \
-    --volume=/tmp/tmpSs5JoN:/tmp:rw \
-    --volume=/home/me/cwl/user_guide/hello.js:/var/lib/cwl/job369354770_examples/hello.js:ro \
-    --workdir=/var/spool/cwl \
-    --read-only=true \
-    --user=1000 \
-    --rm \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/var/spool/cwl \
-    node:slim \
-    node \
+<span class="o">[</span>job docker.cwl<span class="o">]</span> /tmp/tmpgugLND$ docker <span class="se">\</span>
+    run <span class="se">\</span>
+    -i <span class="se">\</span>
+    --volume<span class="o">=</span>/tmp/tmpgugLND:/var/spool/cwl:rw <span class="se">\</span>
+    --volume<span class="o">=</span>/tmp/tmpSs5JoN:/tmp:rw <span class="se">\</span>
+    --volume<span class="o">=</span>/home/me/cwl/user_guide/hello.js:/var/lib/cwl/job369354770_examples/hello.js:ro <span class="se">\</span>
+    --workdir<span class="o">=</span>/var/spool/cwl <span class="se">\</span>
+    --read-only<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+    --user<span class="o">=</span><span class="m">1000</span> <span class="se">\</span>
+    --rm <span class="se">\</span>
+    --env<span class="o">=</span><span class="nv">TMPDIR</span><span class="o">=</span>/tmp <span class="se">\</span>
+    --env<span class="o">=</span><span class="nv">HOME</span><span class="o">=</span>/var/spool/cwl <span class="se">\</span>
+    node:slim <span class="se">\</span>
+    node <span class="se">\</span>
     /var/lib/cwl/job369354770_examples/hello.js &gt; /tmp/tmpgugLND/output.txt
-[job docker.cwl] completed success
-{
-    &quot;example_out&quot;: {
-        &quot;location&quot;: &quot;file:///home/me/cwl/user_guide/output.txt&quot;,
-        &quot;basename&quot;: &quot;output.txt&quot;,
-        &quot;class&quot;: &quot;File&quot;,
-        &quot;checksum&quot;: &quot;sha1$648a6a6ffffdaa0badb23b8baf90b6168dd16b3a&quot;,
-        &quot;size&quot;: 12,
-        &quot;path&quot;: &quot;/home/me/cwl/user_guide/output.txt&quot;
-    }
-}
+<span class="o">[</span>job docker.cwl<span class="o">]</span> completed success
+<span class="o">{</span>
+    <span class="s2">&quot;example_out&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;location&quot;</span>: <span class="s2">&quot;file:///home/me/cwl/user_guide/output.txt&quot;</span>,
+        <span class="s2">&quot;basename&quot;</span>: <span class="s2">&quot;output.txt&quot;</span>,
+        <span class="s2">&quot;class&quot;</span>: <span class="s2">&quot;File&quot;</span>,
+        <span class="s2">&quot;checksum&quot;</span>: <span class="s2">&quot;sha1</span><span class="nv">$648</span><span class="s2">a6a6ffffdaa0badb23b8baf90b6168dd16b3a&quot;</span>,
+        <span class="s2">&quot;size&quot;</span>: <span class="m">12</span>,
+        <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;/home/me/cwl/user_guide/output.txt&quot;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 Final process status is success
 $ cat output.txt
 Hello World
