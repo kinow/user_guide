@@ -1,0 +1,8 @@
+# Prerequisites
+
+TODO:
+
+- Install cwltool - https://github.com/common-workflow-language/user_guide/issues/166
+- Install Docker
+- Clarify local vs container execution - https://github.com/common-workflow-language/user_guide/issues/119
+- Use cwl-runner, explain about it, and the virtualenv's - https://github.com/common-workflow-language/user_guide/issues/64 & simple explanation in https://www.synapse.org/#!Synapse:syn2813589/wiki/401462 too
