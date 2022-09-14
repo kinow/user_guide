@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - automate-generation-of-outputs
   workflow_dispatch:
 
 env:
